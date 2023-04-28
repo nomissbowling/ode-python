@@ -21,6 +21,9 @@ class DrawstuffPyError(Exception):
     pass
 
 def __GetDrawstuffLib():
+    localOdeInstallLibDir = '.' # only on the current directory
+    drawstuffLibName = 'drawstuff.dll' # only for windows
+    '''
     ldLibraryPath = environ.get('LD_LIBRARY_PATH')
     if ldLibraryPath is None:
         ldLibraryPath = []
@@ -31,6 +34,7 @@ def __GetDrawstuffLib():
     environ['LD_LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     environ['LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     drawstuffLibName = find_library('drawstuff')
+    '''
     if drawstuffLibName is None:
         raise DrawstuffPyError('drawstuff library not found.')
     if path.exists(path.join(localOdeInstallLibDir, drawstuffLibName)):

@@ -22,6 +22,9 @@ class OdePyError(Exception):
     pass
 
 def __GetOdeLib():
+    localOdeInstallLibDir = '.' # only on the current directory
+    odeLibName = 'ode.dll' # only for windows
+    '''
     ldLibraryPath = environ.get('LD_LIBRARY_PATH')
     if ldLibraryPath is None:
         ldLibraryPath = []
@@ -32,6 +35,7 @@ def __GetOdeLib():
     environ['LD_LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     environ['LIBRARY_PATH'] = pathsep.join(ldLibraryPath)
     odeLibName = find_library('ode')
+    '''
     if odeLibName is None:
         raise OdePyError('ODE library not found.')
     if path.exists(path.join(localOdeInstallLibDir, odeLibName)):
@@ -272,7 +276,7 @@ class dJointFeedback(Structure):
         self.f2 = f2
         self.t2 = t2
 
-dGeomMoved = loadOde('dGeomMoved', None, dGeomID)
-dGeomGetBodyNext = loadOde('dGeomGetBodyNext', dGeomID, dGeomID)
+#dGeomMoved = loadOde('dGeomMoved', None, dGeomID)
+#dGeomGetBodyNext = loadOde('dGeomGetBodyNext', dGeomID, dGeomID)
 dGetConfiguration = loadOde('dGetConfiguration', POINTER(c_char))
 dCheckConfiguration = loadOde('dCheckConfiguration', c_int32, POINTER(c_char))
